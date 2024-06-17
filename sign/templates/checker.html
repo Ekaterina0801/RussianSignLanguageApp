@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Урок{% endblock title %}
+{% block content %}
+<div class="container">
+    <div class="container-camera">
+        <img src="/camera/{{target_label_name}}">
+      </div>
+    <div class="container-card">
+        <div class="container-category">
+            <div class="category">
+                {% for dict in categorized_labels|dictsort:"category_name" %}
+                <h2>{{ dict.category_name }}</h2>
+                <ul>
+                    {% for label in dict.labels %}
+                    {% if label.name == target_label_name %}
+                        <li class="active_label"><a href="/check/{{ label }}">{{ label }}</a></li>
+                    {% else %}
+                        <li class="label"><a href="/check/{{ label }}">{{ label }}</a></li>
+                    {% endif %}
+                    {% endfor %}
+                </ul>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,549 @@
+@import url("https://fonts.googleapis.com/css2?family=Alegreya:wght@400;500;600;700");
+
+* {
+    margin: 0;
+    padding: 0;
+    outline: none;
+    border: none;
+    text-decoration: none;
+    box-sizing: border-box;
+    font-family: "Alegreya", sans-serif;
+
+}
+
+body {
+    background: #f9f9f9;
+    display: flex;
+    height: 100vh; 
+}
+
+/* SIDEBAR */
+
+nav {
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100vh;
+    background: #f6ebda;
+    width: 300px;
+    box-shadow: 0 20px 30px rgba(149, 148, 148, 0.8);
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    position: fixed;
+    display: flex;
+    
+}
+
+nav ul {
+    flex: 1; /* Allow the list to grow and take remaining space */
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    overflow-y: auto; /* Allow the list to be scrolled if needed */
+    
+
+}
+.nav span{
+    background-color: #0056b3;
+    font-size: 4em;
+}
+#navbarToggle {
+    display: none;
+    /* Сначала скрываем кнопку на маленьких экранах */
+}
+
+@media screen and (max-width: 768px) {
+    #navbarToggle {
+        display: block;
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        cursor: pointer;
+    }
+
+    nav {
+        width: 0;
+        overflow: hidden;
+    }
+
+    nav.open {
+        width: 300px;
+        /* Ширина навигационного меню при открытом состоянии */
+    }
+    .content{
+        margin-left: 0;
+    }
+}
+
+.user-info{
+    align-items: center;
+    display: flex;
+    text-align: center;
+    margin-bottom: 10px;
+}
+.user-info span{
+    vertical-align: middle;
+    margin: auto;
+    font-size: 20px;
+}
+.user-info i{
+    vertical-align: middle;
+}
+nav p{
+    margin-bottom: 10px;
+}
+.logo {
+    text-align: center;
+    display: flex;
+    margin: 10px 0 0 10px;
+}
+
+.logo img {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+}
+
+.logo span {
+    font-weight: bold;
+    padding-left: 15px;
+    font-size: 18px;
+    text-transform: uppercase;
+}
+
+a {
+    position: relative;
+    color: rgb(85, 83, 83);
+    font-size: 20px;
+    display: table;
+    width: 280px;
+    padding: 10px;
+}
+
+p{
+    font-size: 20px;
+}
+nav .fas {
+    position: relative;
+    width: 70px;
+    height: 40px;
+    top: 14px;
+    font-size: 20px;
+    text-align: center;
+}
+
+.nav-item {
+    position: relative;
+    top: 12px;
+    margin-left: 10px;
+}
+
+a:hover {
+    background: #f9f9f93c;
+    
+}
+
+/*Основное содержимое страницы */
+.content{
+    margin-left: 300px;
+    text-align: justify;
+    width: 100%;
+    overflow: auto;
+}
+
+.content-registration{
+    text-align: justify;
+    width: 100%;
+    overflow: auto;
+}
+/* Страница с категориями */
+
+.lessons-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    height: 100%;
+    overflow-y: auto;
+}
+
+
+.lessons-item {
+    flex: none;
+    display: flex;
+    flex-grow: 0;
+    flex-direction: column;
+    align-self: flex-start;
+    padding: 10px;
+    margin: 10px;
+    background: #f6ebda;
+    align-items: center;
+    border-radius: 20px;
+    box-shadow: 0 20px 20px rgba(149, 148, 148, 0.5);
+}
+
+/* При наведении на карточку - меняем цвет тени */
+.lessons:hover {
+    box-shadow: 4px 8px 16px rgba(255, 102, 51, 0.2);
+}
+
+.lessons_top {
+    flex: 1 1 auto;
+    position: relative;
+    text-align: center;
+    padding: 10px;
+}
+
+/* Контейнер для картинки */
+.lessons_image {
+    width: 180px;
+    flex: 0 0 180px;
+    height: 180px;
+}
+
+.lessons_image>img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* Встраиваем картинку в контейнер lessons__image */
+    transition: 0.2s;
+    border-radius: 15px;
+}
+
+/* При наведении - увеличиваем картинку */
+.lessons_image:hover>img {
+    transform: scale(1.1);
+}
+
+.lessons_bottom {
+    display: flex;
+    flex-direction: column;
+    flex: 1 0 auto;
+    padding: 10px;
+    align-items: center;
+}
+
+.lessons_title {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 400;
+    font-size: 17px;
+    line-height: 150%;
+    color: #414141;
+    text-align: center;
+}
+
+.button-lesson{
+    position: relative;
+    color: rgb(85, 83, 83);
+    font-size: 14px;
+    display: table;
+    width: 280px;
+    padding: 10px;
+    text-align: center;
+}
+
+button{
+    box-shadow: 4px 8px 8px rgba(1, 1, 1, 0.5);
+}
+
+.lessons_bottom p{
+    font-size: 24px;
+}
+
+
+.container-video {
+    width: 100%;
+
+    background-color: #f6ebda;
+    border-radius: 20px;
+}
+
+
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+ 
+    justify-content: space-around; /* Выравнивание в ряд с равным пространством между элементами */
+    align-items: flex-start; /* Выравнивание элементов по верхнему краю */
+    margin: 15px;
+    width: 90%;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    background-color: #f6ebda;
+}
+
+.container-camera, .card,.container-video {
+    flex: 1;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-self: flex-start;
+    padding: 10px;
+  
+    background-color: #f6ebda;
+}
+
+.container-camera {
+    flex: 0 0 70%; /* Жёстко задаем ширину 70% */
+}
+
+.container-card {
+    flex:  0 0 10%;
+
+}
+
+.container-profile-card{
+    flex:  0 0 10%;
+    background-color: #f6ebda;
+    border-radius: 20px;
+    padding: 10px;
+    text-align: center;
+}
+.container-video {
+    flex:  0 0 90%;
+}
+
+@media screen and (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        align-items: center;
+        margin-left: 0;
+        /* Выравнивание по центру на маленьких экранах */
+    }
+
+    .container-card, .container-camera {
+        width: 100%;
+        /* Занимать всю ширину на маленьких экранах */
+    }
+    
+    .content{
+        margin-left: 30px;
+    }
+    .buttons-row{
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+.label-selector{
+    display: flex;
+    align-items: center;
+    justify-content:center;
+    width: 70%;
+    margin: auto;
+
+}
+
+.label-selector select{
+    font-size: 16px;
+    margin-left:10px;
+    margin-right: 10px;
+    width: 20%;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+}
+
+.container-camera img {
+    width: 100%;
+    height: 90%;
+    border-radius: 15px;
+
+    object-fit: cover;
+    align-self: center;
+    /*display: flex;*/
+    margin-left: auto;
+    margin-right: auto;
+
+}
+
+.scroll-list{
+    overflow: auto; /* Enable scrolling within the container */
+    height: 100px; /* Set the desired height of the scrollable area */
+}
+
+.buttons-row {
+    display: flex;
+    justify-content: space-between;
+    box-sizing: border-box;
+    flex-wrap: wrap;
+    align-items: center;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.buttons-row h3{
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+}
+/* LOGIN */
+.form-box {
+
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.form-box form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-box input[type="text"],
+.form-box input[type="password"] {
+    margin-bottom: 10px;
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+.form-box button {
+    padding: 10px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.form-box button:hover {
+    background-color: #0056b3;
+}
+
+.form-container {
+    display: flex;
+    grid-template-columns: minmax(200px, 50%) 1fr;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.button {
+    background-color: #555353;
+    /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    text-align: center;
+    border-radius: 15px;
+}
+
+/* LABELS IN CHECKER*/
+.checker_labels {
+    list-style: none;
+    padding: 0;
+    border: 1px solid rgba(0, 0, 0, .2);
+}
+
+.checker_labels li {
+    overflow: hidden;
+    padding: 6px 10px;
+    font-size: 20px;
+}
+
+.checker_labels li:first-child {
+    font-weight: bold;
+    padding: 15px 0 10px 15px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid rgba(0, 0, 0, .2);
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    color: #679bb7;
+    font-size: 24px;
+    box-shadow: 0 10px 20px -5px rgba(0, 0, 0, .2);
+}
+
+.checker_labels li:first-child:before {
+    content: "\2749";
+    margin-right: 10px;
+}
+
+.checker_labels span {
+    float: left;
+    width: 75%;
+    color: #7C7D7F;
+}
+
+.checker_labels em {
+    float: right;
+    color: #9c836e;
+    font-weight: bold;
+}
+
+.container-category {
+    overflow-y: auto;
+    width: 100%;
+    max-height: 90vh;
+}
+
+.category {
+    margin-bottom: 20px;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    padding: 5px;
+    border-bottom: 1px solid #ddd;
+}
+
+h2 {
+    background-color: #f1f1f1;
+    padding: 5px;
+    margin: 0;
+    text-align: center;
+}
+
+.active_label{
+    background-color:#04AA6D;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.label{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.center-container {
+    margin: auto;
+    width: 50%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    justify-content: center;
+    align-content: center;
+}
+
+.profile {
+    display: grid;
+    background: #f6ebda;
+    padding: 10px;
+    max-height: 70vh;
+    border-radius: 20px;
+    box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1);
+}
+
+.profile > h1 {
+    justify-self: center;
+    font-size: 30px;
+}
+
+.profile > .li {
+    margin-left: 30px;
+}

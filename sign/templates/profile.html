@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Профиль{% endblock title %}
+{% block content %}
+<div class="center-container">
+    <div class="container-profile-card">
+        <h1>Имя пользователя: {{ user.username }}</h1>
+        <h1>Пройденные уроки по категориям:</h1>
+        <div class="container-category">
+            {% for dict in categorized_labels|dictsort:"category_name" %}
+            <div class="category">
+                <h2>{{ dict.category_name }}: {{ dict.labels_learned|length }}/{{ dict.labels|length }}</h2>
+                <ul class="scroll-list">
+                    {% for label in dict.labels_learned %}
+                    <li class="label">{{ label }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endfor %}
+        </div>
+        <h1>Пройденные тесты по категориям:</h1>
+        <div class="container-category">
+            {% for dict in categorized_labels|dictsort:"category_name" %}
+            <div class="category">
+                <h2>{{ dict.category_name }}: {{ dict.tests_completed|length }}/{{ dict.labels|length }}</h2>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock content %}

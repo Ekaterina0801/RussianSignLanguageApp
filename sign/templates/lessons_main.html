@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Уроки{% endblock title %}
+{% block content %}
+<div class="lessons-grid">
+    {% for dict in categorized_labels|dictsort:"category_name" %}
+    <div class="lessons-item">
+        <div class="lessons_top">
+            {% if user.is_authenticated %}
+            <p>Пройдено уроков: {{ dict.labels_learned|length }}/{{ dict.labels|length }}</p>
+            {% endif %}
+        </div>
+        <div class="lessons_image">
+            {% with dict.category.picture_file as path %}
+            {% if path != None %}
+            <img src="{% static path %}" />
+            {% endif %}
+            {% endwith %}
+        </div>
+        <div class="lessons_bottom">
+            <p class="lessons_title">
+                {{ dict.category_name }}
+            </p>
+            <a href="/lesson/{{ dict.category_name }}" class="button-lesson">
+                <button class="button">К изучению</button>
+            </a>
+        </div>
+    </div>
+
+    {% endfor %}
+</div>
+{% endblock content %}

@@ -1,0 +1,78 @@
+<span style="font-family: verdana, geneva, sans-serif;"></span>
+<!DOCTYPE html>
+<html>
+{% load static %}
+{% load filters %}
+
+<head>
+    <meta charset="utf-8" />
+    <link rel="shortcut icon" type="image/jpg" href="{% static 'images/favicon.jpg' %}" >
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    <script type="text/javascript" src="{% static 'js/javascript.js' %}"></script>
+    <!-- Font Awesome Cdn Link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    <title>{% block title %}Default title{% endblock title %}</title>
+</head>
+
+<body>
+
+        <nav>
+            <ul>
+                <li><a href="#" class="logo">
+                        <img src="{% static 'images/favicon.jpg' %}" alt="">
+                        <span class="nav-item">РЖЯ</span>
+                    </a></li>
+                <li><a href="/">
+                        <i class="fas fa-home"></i>
+                        <span class="nav-item">Главная</span>
+                    </a></li>
+                <li><a href="/recognizer">
+                        <i class="fas fa-video"></i>
+                        <span class="nav-item">Распознаватель</span>
+                    </a></li>
+                <li><a href="/lessons_main">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                        <span class="nav-item">Уроки</span>
+                    </a></li>
+                <li><a href="/tests_main">
+                        <i class="fas fa-tasks"></i>
+                        <span class="nav-item">Тесты</span>
+                    </a></li>
+                {% if user.is_authenticated %}
+                <!-- <li>Пользователь: {{ user.get_username }}</li> -->
+                <li><a href="/profile">
+                    <i class="fas fa-user"></i>
+                    <span class="nav-item">Профиль</span>
+                </a></li>
+                <li><a href="{% url 'logout'%}?next={{request.path}}">
+                    <i class="fas fa-user-times"></i>
+                    <span class="nav-item">Выйти из профиля</span>
+                </a></li>
+                {% else %}
+                <li><a href="{% url 'login'%}?next={{request.path}}">
+                    <i class="fas fa-user-check"></i>
+                    <span class="nav-item">Авторизация</span>
+                </a></li>
+                <li><a href="{% url 'signup'%}?next={{request.path}}">
+                    <i class="fas fa-user-plus"></i>
+                    <span class="nav-item">Регистрация</span>
+                </a></li>
+             
+                {% endif %}
+            </ul>
+            {% if user.is_authenticated %}
+            <div class="user-info">
+                <i class="fas fa-user"></i>
+                <span>Пользователь: {{ user.get_username }}</span></div>
+            {% endif %}
+        </nav>
+        <div id="navbarToggle">&#9776;</div>
+        <div class="content">
+            {% block content%}{% endblock content %}
+        </div>
+        
+
+
+</body>
+
+</html>

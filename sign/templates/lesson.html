@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Урок{% endblock title %}
+{% block content %}
+<div class="container">
+    <div class="container-video">
+        <h1>Жест: {{target_label}}</h1>
+        <video class="container-video" controls>
+            <!-- {% with "videos/"|add:target_label.name|add:".mp4" as path %} -->
+            <source src="{% static video_path %}" type="video/mp4" />
+            {% endwith %}
+        </video>
+        <div class="buttons-row">
+            <a href="/check/{{ target_label }}">
+                <button class="button">Тренировка</button>
+            </a>
+            <form class="label-selector" method="POST">
+                {% csrf_token %}
+                <h3>Выбор урока: </h3>
+                <select name="label">
+                    {% for label in labels %}
+                    {% if label.name == target_label.name %}
+                    <option value="{{ label }}" selected>{{ label }}</option>
+                    {% else %}
+                    <option value="{{ label }}">{{ label }}</option>
+                    {% endif %}
+                    {% endfor %}
+                </select>
+                <button class="button">Применить</button>
+
+            </form>
+        </div>
+    </div>
+
+</div>
+{% endblock content %}

@@ -1,0 +1,141 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Урок{% endblock title %}
+{% block content %}
+<div class="container">
+    <p>
+<!--     <p id="question">{{ name }}</p>
+    <p id="number">{{ number }}</p> -->
+    <!-- {{question.type}} -->
+    Номер вопроса: {{number}} / {{all_count}}
+    </p>
+    {% if question.type == 'guess_gesture'%}
+    <video class="container-video" controls>
+        {% with "videos/"|add:question.name|add:".mp4" as path %}
+        <source src="{% static path %}" type="video/mp4" />
+        {% endwith %}
+
+    </video>
+    <div class="container-category">
+        <form class="label-selector" method="POST">
+            {% csrf_token %}
+            <h3>Какой жест показан? </h3>
+            <select name="label" id="gestureSelect">
+                {% for lesson in lessons %}
+                <option value="{{ lesson }}">{{ lesson }}</option>
+                {% endfor %}
+            </select>
+            <button class="button">Отправить</button>
+        </form>
+    </div>
+    {% else %}
+    <div class="container-category">
+        <p>Покажите жест {{question.name}}</p>
+    </div>
+    <!-- <div class="container-camera">
+        <img src="/camera/{{ question.name }}/test">
+    </div> -->
+    <div class="container-camera">
+        <img id="cameraFeed" src="" alt="Camera Feed">
+    </div>
+
+    <div id="result"></div>
+
+    <form class="label-selector" method="POST">
+        {% csrf_token %}
+        <button class="button">Пропустить</button>
+    </form>
+
+    <script>
+        var cameraFeed = document.getElementById('cameraFeed');
+        var resultDiv = document.getElementById('result');
+        var csrftoken = getCookie('csrftoken');
+        var eventSource = new EventSource('/camera_test/{{ question.name }}');
+        var isRequestInProgress = false;
+
+        eventSource.onmessage = function (event) {
+
+            var eventData = JSON.parse(event.data);
+            var imageBase64 = eventData.image;
+            var resultData = eventData.result;
+
+            // Update the image source
+            cameraFeed.src = 'data:image/jpeg;base64,' + imageBase64;
+
+            // Update the result display
+            resultDiv.innerText = '{{ question.name }}' === resultData;
+            if (isRequestInProgress) {
+                // A request is already in progress, skip initiating a new request
+                return;
+            }
+
+            if ('{{ question.name }}' === resultData) {
+                resultDiv.innerText = 'EEEEE';
+                console.log('{{ question.name }}');
+
+                console.log(resultData);
+
+                isRequestInProgress = true;
+
+                // Make a POST request
+                fetch('{{ request.build_absolute_uri }}', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                        'X-CSRFToken': csrftoken
+                    },
+                    body: 'label=' + encodeURIComponent(resultData)
+                })
+                    .then(response => {
+                        console.log(response);
+                        
+                        if (response.ok) {
+                            console.log('POST request successful');
+                            window.location.href = response.url
+                        } else {
+                            console.error('Error making the POST request');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        isRequestInProgress = false;
+                    });
+            }
+        };
+
+        function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+    </script>
+    {% endif %}
+    <!-- <div class="container-card">
+        <div class="container-category">
+            <div class="category">
+                {% for dict in categorized_lessons|dictsort:"category" %}
+                <h2>{{ dict.category }}</h2>
+                <ul>
+                    {% for lesson in dict.lessons %}
+                    {% if lesson.label.name == label %}
+                        <li class="active_label"><a href="/check/{{ lesson.label }}">{{ lesson.label }}</a></li>
+                    {% else %}
+                        <li class="label"><a href="/check/{{ lesson.label }}">{{ lesson.label }}</a></li>
+                    {% endif %}
+                    {% endfor %}
+                </ul>
+                {% endfor %}
+            </div>
+        </div>
+    </div> -->
+</div>
+{% endblock content %}

@@ -1,0 +1,22 @@
+<span style="font-family: verdana, geneva, sans-serif;"></span>
+<!DOCTYPE html>
+<html>
+{% load static %}
+
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    <script type="text/javascript" src="{% static 'js/javascript.js' %}"></script>
+    <!-- Font Awesome Cdn Link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    <title>{% block title %}Default title{% endblock title %}</title>
+</head>
+
+<body>
+    <div class="content-registration">
+        {% block content%}{% endblock content %}
+    </div>
+
+</body>
+
+</html>
